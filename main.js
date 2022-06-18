@@ -113,3 +113,122 @@ function tinhTienDien(id1) {
   }
   return tongTien.toLocaleString();
 }
+
+// Bài tập 3: Tính thuế thu nhập cá nhân
+
+document.getElementById("btnTinhTienThue").onclick = function () {
+  var ketQua = tinhThue("ten_3", "thuNhapNam", "soNguoiPhuThuoc");
+  // output in ra giao diện màn hình
+  document.getElementById("ketQua_b3").innerHTML = ketQua;
+};
+
+function tinhThue(id1, id2, id3) {
+  // input hoTen: string, thuNhapNam: number, soNguoiPhuThuoc: number
+  var hoTen = document.getElementById(id1).value;
+  var thuNhapNam = Number(document.getElementById(id2).value);
+  var soNguoiPhuThuoc = Number(document.getElementById(id3).value);
+  // output ketQua: string, tienThue: number
+  var ketQua = "";
+  var tienThue = 0;
+  // progress
+  tienThue = thuNhapNam - 4000000 - soNguoiPhuThuoc * 1600000;
+
+  if (thuNhapNam < 0) {
+    ketQua = "Thu nhập năm không hợp lệ";
+  } else if (thuNhapNam > 0 && thuNhapNam <= 60000000) {
+    tienThue = (tienThue * 5) / 100;
+    ketQua =
+      hoTen + " - Tiền thuế thu nhập cá nhân: " + tienThue.toLocaleString();
+  } else if (thuNhapNam > 60000000 && thuNhapNam <= 120000000) {
+    tienThue = (tienThue * 10) / 100;
+
+    ketQua =
+      hoTen + " - Tiền thuế thu nhập cá nhân: " + tienThue.toLocaleString();
+  } else if (thuNhapNam > 120000000 && thuNhapNam <= 210000000) {
+    tienThue = (tienThue * 15) / 100;
+
+    ketQua =
+      hoTen + " - Tiền thuế thu nhập cá nhân: " + tienThue.toLocaleString();
+  } else if (thuNhapNam > 210000000 && thuNhapNam <= 384000000) {
+    tienThue = (tienThue * 20) / 100;
+
+    ketQua =
+      hoTen + " - Tiền thuế thu nhập cá nhân: " + tienThue.toLocaleString();
+  } else if (thuNhapNam > 384000000 && thuNhapNam <= 624000000) {
+    tienThue = (tienThue * 25) / 100;
+
+    ketQua =
+      hoTen + " - Tiền thuế thu nhập cá nhân: " + tienThue.toLocaleString();
+  } else if (thuNhapNam > 624000000 && thuNhapNam <= 960000000) {
+    tienThue = (tienThue * 30) / 100;
+
+    ketQua =
+      hoTen + " - Tiền thuế thu nhập cá nhân: " + tienThue.toLocaleString();
+  } else {
+    tienThue = (tienThue * 35) / 100;
+
+    ketQua =
+      hoTen + " - Tiền thuế thu nhập cá nhân: " + tienThue.toLocaleString();
+  }
+  return ketQua;
+}
+
+// Bài 4: Tính tiền cáp
+document.getElementById("btnTinhTienCap").onclick = function () {
+  var ketQua = tinhTienCap(
+    "selectLoaiKhachHang",
+    "maKhachHang",
+    "soKenh",
+    "soKetNoi"
+  );
+  // output in ra giao diện màn hình
+  document.getElementById("ketQua_b4").innerHTML = ketQua;
+};
+
+// onchangeSelect
+document.getElementById("selectLoaiKhachHang").onchange = function () {
+  tinhTienCap("selectLoaiKhachHang", "maKhachHang", "soKenh", "soKetNoi");
+};
+
+function tinhTienCap(id1, id2, id3, id4) {
+  // input loaiKhachHang: string, maKhachHang: number, soKenh: number, soKetNoi: number
+  var loaiKhachHang = document.getElementById(id1).value;
+  var maKhachHang = Number(document.getElementById(id2).value);
+  var soKenh = Number(document.getElementById(id3).value);
+  var soKetNoi = Number(document.getElementById(id4).value);
+
+  // output ketQua: string, tienCap: number
+  var ketQua = "";
+  var tienCap = 0;
+
+  // progress
+  document.getElementById(id4).disabled = true;
+  if (loaiKhachHang === "ND") {
+    tienCap = 4.5 + 20.5 + soKenh * 7.5;
+    ketQua =
+      "Mã khách hàng: " +
+      maKhachHang +
+      " - Tiền cáp: $" +
+      tienCap.toLocaleString();
+  } else if (loaiKhachHang === "DN") {
+    document.getElementById(id4).disabled = false;
+    if (soKetNoi > 0 && soKetNoi <= 10) {
+      tienCap = 15 + 75 + soKenh * 50;
+      ketQua =
+        "Mã khách hàng: " +
+        maKhachHang +
+        " - Tiền cáp: $" +
+        tienCap.toLocaleString();
+    } else {
+      tienCap = 15 + 75 + (soKetNoi - 10) * 5 + soKenh * 50;
+      ketQua =
+        "Mã khách hàng: " +
+        maKhachHang +
+        " - Tiền cáp: $" +
+        tienCap.toLocaleString();
+    }
+  } else {
+    ketQua = "Hãy chọn loại khách hàng";
+  }
+  return ketQua;
+}
